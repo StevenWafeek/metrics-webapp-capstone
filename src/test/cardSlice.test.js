@@ -1,4 +1,4 @@
-import { selectCards, selectLoading, selectError } from './cardSlice';
+import { selectCards, selectLoading, selectError } from '../redux/cardSlice';
 
 describe('cardSlice selectors', () => {
   const initialState = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useParams } from 'react-router-dom';
-import CardDetails from './cardDetails';
+import CardDetails from '../component/cardDetails';
 
 jest.mock('react-router-dom', () => ({
   useParams: jest.fn(),
