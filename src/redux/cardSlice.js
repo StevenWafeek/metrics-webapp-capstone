@@ -1,36 +1,38 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 export const fetchCards = createAsyncThunk('cards/fetchCards', async () => {
-  const response = await fetch(
-    'https://financialmodelingprep.com/api/v3/stock/list?apikey=7d590f6da85f2280e76c80b6214c2bcb',
-  );
-  const data = await response.json();
-  // Return only the first 100 objects from the data array
-  return data.slice(0, 100);
+  const response = await axios.get('https://pokeapi.co/api/v2/pokemon');
+  return response.data.results;
 });
 
-const cardsSlice = createSlice({
+const cardSlice = createSlice({
   name: 'cards',
   initialState: {
     cards: [],
-    status: 'idle',
+    loading: false,
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchCards.pending, (state) => {
-        state.status = 'loading';
+        state.loading = true;
+        state.error = null;
       })
       .addCase(fetchCards.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.loading = false;
         state.cards = action.payload;
       })
       .addCase(fetchCards.rejected, (state, action) => {
-        state.status = 'failed';
+        state.loading = false;
         state.error = action.error.message;
       });
   },
 });
 
-export default cardsSlice.reducer;
+export const selectCards = (state) => state.cards.cards;
+export const selectLoading = (state) => state.cards.loading;
+export const selectError = (state) => state.cards.error;
+
+export default cardSlice.reducer;
