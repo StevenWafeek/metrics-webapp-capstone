@@ -1,36 +1,48 @@
+/* eslint-disable react/no-array-index-key */
+// cards.js
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchCards } from '../redux/cardSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import {
+  fetchCards, selectCards, selectLoading, selectError,
+} from '../redux/cardSlice';
 
-function Cards() {
+const CardList = () => {
   const dispatch = useDispatch();
-  const cards = useSelector((state) => state.cards.cards);
-  const status = useSelector((state) => state.cards.status);
-  const error = useSelector((state) => state.cards.error);
+  const cards = useSelector(selectCards);
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchCards());
   }, [dispatch]);
 
-  if (status === 'loading') {
+  if (loading) {
     return <div>Loading...</div>;
   }
 
-  if (status === 'failed') {
-    return <div>{error}</div>;
+  if (error) {
+    return (
+      <div>
+        Error:
+        {' '}
+        {error}
+      </div>
+    );
   }
 
   return (
     <div>
-      {Array.isArray(cards)
-        && cards.map((card) => (
-          <div key={card.id}>
-            <h2>{card.name}</h2>
-            <p>{card.desc}</p>
-          </div>
-        ))}
+      {cards.map((card, index) => (
+        <div key={index}>
+          <Link to={`/details/${card.name}`}>
+            <button type="button">Details</button>
+          </Link>
+          {card.name}
+        </div>
+      ))}
     </div>
   );
-}
+};
 
-export default Cards;
+export default CardList;
