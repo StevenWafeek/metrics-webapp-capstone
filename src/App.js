@@ -1,12 +1,15 @@
-import React from 'react';
-
-import Cards from './component/cards';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import CardList from './component/cards';
+import CardDetails from './component/cardDetails';
 
 function App() {
   return (
-    <div className="App">
-      <Cards />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<CardList />} />
+        <Route path="/card/:id" element={<CardDetails />} />
+      </Routes>
+    </Router>
   );
 }
 
