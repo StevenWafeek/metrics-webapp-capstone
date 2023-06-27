@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
@@ -8,6 +8,7 @@ import {
   selectLoading,
   selectError,
 } from '../redux/cardSlice';
+import Filter from './Filter';
 
 const CardList = () => {
   const dispatch = useDispatch();
@@ -43,12 +44,7 @@ const CardList = () => {
         {' '}
         {filteredCards.length}
       </div>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <Filter searchTerm={searchTerm} onSearch={setSearchTerm} />
       <div className="pok-container">
         {filteredCards.map((card) => (
           <div key={card.url}>
