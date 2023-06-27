@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CardList from './component/cards';
 import CardDetails from './component/cardDetails';
 
@@ -7,7 +8,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<CardList />} />
-        <Route path="/card/:id" element={<CardDetails />} />
+        <Route path="/details/:pokemonName" element={<CardDetails />} />
       </Routes>
     </Router>
   );
