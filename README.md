@@ -126,7 +126,7 @@ Clone this repository to your desired folder:
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://stevenwafeek.github.io/Conference-page/)
+- [Live Demo Link](https://stevenwafeek.github.io/metrics-webapp-capstone/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
