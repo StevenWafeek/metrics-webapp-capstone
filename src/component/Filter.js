@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Filter = ({ searchTerm, onSearch }) => (
-  <div>
+  <div className="search">
     <input
       type="text"
       placeholder="Search..."
