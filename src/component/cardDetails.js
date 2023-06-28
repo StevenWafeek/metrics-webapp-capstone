@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 const CardDetails = () => {
   const [pokemon, setPokemon] = useState(null);
   const [typeDetails, setTypeDetails] = useState(null);
+  const [numericValue, setNumericValue] = useState(null);
 
   const { pokemonName } = useParams();
 
@@ -17,6 +18,10 @@ const CardDetails = () => {
       const typeResponse = await fetch(`https://pokeapi.co/api/v2/type/${typeId}`);
       const typeData = await typeResponse.json();
       setTypeDetails(typeData);
+
+      // Fetching the numeric value from the API response
+      const speed = data.moves.length;
+      setNumericValue(speed);
     };
 
     fetchPokemonDetails();
@@ -27,37 +32,44 @@ const CardDetails = () => {
   }
 
   return (
-    <div>
+    <div className="detail-header">
       <h2>{pokemon.name}</h2>
       <img src={pokemon.sprites.front_default} alt={pokemon.name} />
       {typeDetails && (
         <div>
           <h3>
-            Type:
+            <span> Type: </span>
             {' '}
             {typeDetails.name}
           </h3>
           <p>
-            Double Damage From:
+            <span>Double Damage From :</span>
             {' '}
             {typeDetails.damage_relations.double_damage_from.map((type) => type.name).join(', ')}
           </p>
           <p>
-            Double Damage To:
+            <span>Double Damage To :</span>
             {' '}
             {typeDetails.damage_relations.double_damage_to.map((type) => type.name).join(', ')}
           </p>
           <p>
-            Half Damage From:
+            <span> Half Damage From :</span>
             {' '}
             {typeDetails.damage_relations.half_damage_from.map((type) => type.name).join(', ')}
           </p>
           <p>
-            Half Damage To:
+            <span>Half Damage To :</span>
             {' '}
             {typeDetails.damage_relations.half_damage_to.map((type) => type.name).join(', ')}
           </p>
         </div>
+      )}
+      {numericValue && (
+        <p>
+          <span>  moves :</span>
+          {' '}
+          {numericValue}
+        </p>
       )}
     </div>
   );
